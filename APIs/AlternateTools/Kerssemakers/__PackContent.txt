@@ -1,0 +1,46 @@
+Jacob Kerssemakers, June 2007
+------------------------------------
+This directory contains:
+
+
+-------------------
+two pairs of simulated files for seeing the input format &tryouts:
+test_StepGro.txt :  regular stepped growth with noise
+test_LinGro.txt : equal growth, with noise but without steps
+
+test_Fakestepper1000.txt: random stepped growth with noise
+test_Fakeline1000.txt: similar growth, with noise but without steps
+--------------------
+
+---------------------
+The main programs& description:
+Steps_Find.m
+Steps_Evaluate.m
+StepFindManual.doc
+--------------------
+
+---------------------
+Extra programs:
+-StepMaker.m : program by JWJ Kerssemakers that allows user to make simulated noisy step-tracks 
+with known content, to evaluate the stepfinder-program
+
+-stepfindercaller.m: program 03/31/07 by YJ SUN , Vale Lab : % 03/31/07 by YJ SUN: use Kerssemaker's 
+stepfinder algorithm to fit individual stepping traces in a concatenated 
+data set that has multiple traces.
+
+---------------
+
+------------------
+pdf file with theory as described in the original paper: 
+Supplemental material of 
+Kerssemakers et al, Nature. 2006 Aug 10;442(7103):709-12), 
+Assembly dynamics of microtubules at molecular resolution.
+------------------
+
+-------------------------
+animation of the fitting process:
+Fakestepper1000_mov45:  
+on a testfile (this output is option in program)
+-------------------------------------------
+
+Enjoy!
