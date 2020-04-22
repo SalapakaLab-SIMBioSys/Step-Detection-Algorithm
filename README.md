@@ -1,7 +1,7 @@
 # SDA_Toolbox
 Toolbox for Step Detection Algorithm 
 
-# Please Cite
+# References
 @inproceedings{rajaganapathy2018learning,
   title={Learning and Estimation of Single Molecule Behavior},
   author={Rajaganapathy, Sivaraman and Melbourne, James and Aggarwal, Tanuj and Shrivastava, Rachit and Salapaka, Murti V},
