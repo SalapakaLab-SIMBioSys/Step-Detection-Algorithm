@@ -2,22 +2,6 @@
 Toolbox for Step Detection Algorithm 
 
 # References
-@inproceedings{rajaganapathy2018learning,
-  title={Learning and Estimation of Single Molecule Behavior},
-  author={Rajaganapathy, Sivaraman and Melbourne, James and Aggarwal, Tanuj and Shrivastava, Rachit and Salapaka, Murti V},
-  booktitle={2018 Annual American Control Conference (ACC)},
-  pages={5125--5130},
-  year={2018},
-  organization={IEEE}
-}
+Rajaganapathy, Sivaraman, James Melbourne, Tanuj Aggarwal, Rachit Shrivastava, and Murti V. Salapaka. "Learning and Estimation of Single Molecule Behavior." In 2018 Annual American Control Conference (ACC), pp. 5125-5130. IEEE, 2018.
 
-@article{aggarwal2012detection,
-  title={Detection of steps in single molecule data},
-  author={Aggarwal, Tanuj and Materassi, Donatello and Davison, Robert and Hays, Thomas and Salapaka, Murti},
-  journal={Cellular and molecular bioengineering},
-  volume={5},
-  number={1},
-  pages={14--31},
-  year={2012},
-  publisher={Springer}
-}
+Aggarwal, Tanuj, Donatello Materassi, Robert Davison, Thomas Hays, and Murti Salapaka. "Detection of steps in single molecule data." Cellular and molecular bioengineering 5, no. 1 (2012): 14-31.
