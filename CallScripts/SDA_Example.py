@@ -21,7 +21,7 @@ import control as ctrl
 import os
 
 import sys
-sys.path.append('../../')
+sys.path.append('../')
 
 # my toolkits
 from APIs.SDACore.CostFunctions import CostFunctions
