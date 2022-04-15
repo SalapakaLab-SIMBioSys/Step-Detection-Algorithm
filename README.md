@@ -1,3 +1,5 @@
+# Installation
+
 # SDA
 Toolbox for Step Detection Algorithm 
 
