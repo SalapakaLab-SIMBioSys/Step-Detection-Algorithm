@@ -1,4 +1,4 @@
-# SDA_Toolbox
+# SDA
 Toolbox for Step Detection Algorithm 
 
 # Citation 
