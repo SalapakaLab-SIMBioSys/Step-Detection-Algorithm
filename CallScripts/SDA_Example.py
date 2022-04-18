@@ -34,7 +34,6 @@ from APIs.SDACore.SDADynamics import SDADynamics
 
 #%%
 
-altMethodObj = AlternateMethods()
 # =============================================================================
 # Generating noisy stepping data 
 # =============================================================================
