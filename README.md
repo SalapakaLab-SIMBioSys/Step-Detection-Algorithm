@@ -1,5 +1,5 @@
 # Step Detection Algorithm
-A toolbox for detecting steps of unknown size and location. 
+A toolbox for detecting steps of unknown size and location in a noisy signal.
 
 # How to use
 
