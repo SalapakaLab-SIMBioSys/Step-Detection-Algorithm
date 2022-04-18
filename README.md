@@ -1,7 +1,7 @@
-# Installation
+# Step Detection Algorithm
+A toolbox for detecting steps of unknown size and location. 
 
-# SDA
-Toolbox for Step Detection Algorithm 
+# How to use
 
 # Citation 
 To cite SDA, please use the Automatica publication:
