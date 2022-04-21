@@ -324,75 +324,7 @@ class SDAHistogram():
 # =============================================================================    
     
 
-#%%
-'''
-bin_boundaries = [-np.inf, 0,1,2,3,4, np.inf]
-bin_heights = [0,1,2,1,0,0] 
-SDAHistObj = SDAHistogram(bin_boundaries) 
 
-SDAHistObj.plot_hist(bin_heights, bin_boundaries)
-
-
-bin_width = 1
-
-
-# inputs, convert to numpy arrays
-bin_boundaries = np.array(bin_boundaries)
-bin_heights = np.array(bin_heights) 
-
-
-# Check for and remove infs in the bin_boundaries just for plotting
-bin_range = np.min(np.abs(np.diff(bin_boundaries)))
-
-if(bin_boundaries[0]==-np.inf):
-    bin_boundaries[0] = bin_boundaries[1] - bin_range
-    
-if(bin_boundaries[-1]== np.inf):
-    bin_boundaries[-1] = bin_boundaries[-2] + bin_range
-
-bin_centers = (bin_boundaries[0:-1] + bin_boundaries[1::])/2
-
-                
-plt.figure()        
-plt.bar(bin_centers, bin_heights, width = bin_width, color=(0.1, 0.1, 0.1, 0.2),  edgecolor='blue', align = 'center')
-plt.xticks(bin_boundaries)
-plt.show()      
-    
-
-entropy = SDAHistObj.get_hist_entropy(bin_heights, bin_boundaries)
-print(entropy)
-'''
-#%%
-'''
-bin_boundaries = [1,2,3,4]
-bin_heights = [111,-111,222]
-
-
-SDAHistObj = SDAHistogram(bin_boundaries) 
-xvals = [3, 3.5, 4.5, 2.3, 2, -10, 120, 1, np.inf]
-
-SDA_hist_vals = SDAHistObj.SDA_hist(xvals, bin_heights)
-
-boundary_decisions = [1, 0, 1, 0]
-SDA_hist_vals_2 = SDAHistObj.SDA_hist(xvals, bin_heights, boundary_decisions = boundary_decisions)
-
-#bin_boundaries = SDAHistObj.get_boundaries(-10, 10, 10)
-
-
-hist_data = [2, 2.3, 2.3, 1, 1, 1.3, 3.5, 500, 500, 500]
-boundary_decisions = np.zeros(np.shape(bin_boundaries))
-
-[bin_heights, bin_boundaries] = SDAHistObj.get_bin_heights(hist_data, bin_boundaries, boundary_decisions)
-is_USC = SDAHistObj.is_hist_USC(bin_heights, boundary_decisions)
-
-
-# Keeping binning till USC histogram is formed
-hist_data = [2, 2.3, 2.3, 1, 1, 1.3, 3.5, 500, 500, 500]
-
-[bin_heights, boundary_decisions] = SDAHistObj.build_USC_hist(hist_data, bin_boundaries) 
-'''
-
-    
 
     
     

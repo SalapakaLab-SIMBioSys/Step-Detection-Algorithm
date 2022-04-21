@@ -22,6 +22,8 @@ sys.path.append('../../')
 # my toolkits
 from APIs.SDACore.CostFunctions import CostFunctions
 from APIs.SDACore.SDAHistogram import SDAHistogram
+from APIs.Validation.ErrorMetrics import ErrorMetrics
+from APIs.Utils.Utils import Utils
 
 # =============================================================================
 
@@ -38,14 +40,15 @@ class SDA():
     #--------------------------------------------------------------------------        
     def __init__(self):
         a = 1
-   
+        
+        
     #--------------------------------------------------------------------------
 
 
     #--------------------------------------------------------------------------        
     # SDA standard
     #--------------------------------------------------------------------------        
-    def SDA_standard(self, noise_std, y, resolution = 0.1, iterations = 5, diagnostics = 0, make_plots = 0):
+    def SDA_standard(self, noise_std, y, resolution = 0.05, iterations = 5, diagnostics = 0, make_plots = 0):
                 
         y_range = np.ptp(y) # Range of the dataset
         #resol_N = 100 # No. of points for reslution
@@ -133,6 +136,11 @@ class SDA():
             if(diagnostics == 1):
                 est_array.append(x_estimate)
                 hist_array.append(step_hist)
+            else:
+                est_array = []
+                hist_array = []
+                est_array.append(x_estimate)
+                hist_array.append(step_hist)                
                          
         return(x_estimate, est_array, hist_array)
     #--------------------------------------------------------------------------    
@@ -141,7 +149,7 @@ class SDA():
     #--------------------------------------------------------------------------        
     # SDA with sensor dynamics (optional, if dynamics are 1, reverts to standard SDA)
     #--------------------------------------------------------------------------        
-    def SDA_dynamics(self, noise_std, y, resolution = 0.1, hist_tol = 0.001, iterations = 5, diagnostics = 0, make_plots = 0, sysd = None):
+    def SDA_dynamics(self, noise_std, y, resolution = 0.05, hist_tol = 0.001, iterations = 5, diagnostics = 0, make_plots = 0, sysd = None):
                 
         y_range = np.ptp(y) # Range of the dataset
         #resol_N = 100 # No. of points for reslution
@@ -249,7 +257,12 @@ class SDA():
             if(diagnostics == 1):
                 est_array.append(x_estimate)
                 hist_array.append(step_hist)
-            
+            else:
+                est_array = []
+                hist_array = []
+                est_array.append(x_estimate)
+                hist_array.append(step_hist) 
+                    
             print('Iteration count = ' + str(iter_no))
             print('Hist Tol = ' + str(ks_dist)+'\n')
             
@@ -268,60 +281,90 @@ class SDA():
     #--------------------------------------------------------------------------        
     # Plot the SDA stages
     #--------------------------------------------------------------------------        
-    def plot_SDA_stages(self, x_actual, est_array, hist_array, no_zeros=0):    
+    def plot_SDA_stages(self, x_actual, y, est_array, hist_array, save_fig = 1, no_zeros = 1):    
+        
+        font = 12
+        xlim = (0.5,1.5)
+        ylim = (0, 0.022)
         
         SDAHistObj = SDAHistogram()
+        ERRObj = ErrorMetrics()
+        UObj = Utils()
         
+        err_func = ERRObj.get_RMSE    
+        err_array = ERRObj.get_err_array(est_array, x_actual.T, err_func, tol = 0, normalize = 'range')   
+
         arr_len = np.size(est_array,0)
         
         for ii in range(0,arr_len,1):
+
+            # Plot clean sample plots
+
             plt.figure()
-            plt.plot(x_actual)
-            plt.plot(est_array[ii])
+            plt.plot(y.T, lw = 2, color = (0, 0.5, 0, 0.5), label="Measured Signal")
+            plt.plot(x_actual, lw = 3, color = 'r', label="Ground Truth")
+            plt.plot(est_array[ii], ls='--',lw = 3, color = 'b', label="Estimate")
             
         
-            SDAHistObj.plot_hist(hist_array[ii][0], hist_array[ii][1], no_zeros= no_zeros)        
+            plt.yticks(fontsize = font)
+            plt.xticks(fontsize = font, rotation = 'horizontal')
+            plt.xlabel('Sample Count', fontsize = font)
+            plt.ylabel('Magnitude', fontsize = font)
+            plt.title('Step Signal & Estimate\n Stage ' + str(ii))
+            plt.show() 
+            plt.legend()
+            plt.grid()
+            
+            if(save_fig == 1):    
+                UObj.folder_check('Stages/')
+                plt.savefig('Stages/StepFit_Stage_'+str(ii)+'.png')
+                plt.savefig('Stages/StepFit_Stage_'+str(ii)+'.svg')
+
+            # plt.figure()
+            # plt.plot(x_actual)
+            # plt.plot(est_array[ii])
+            
+            
+            
+        
+            # SDAHistObj.plot_hist(hist_array[ii][0], hist_array[ii][1], no_zeros= no_zeros)        
+
+            # Plot clean Histograms
+            [bin_centers, bin_heights, bin_width, bin_boundaries] = SDAHistObj.plot_hist(hist_array[ii][0], hist_array[ii][1], no_zeros= 1, suppress_plots = 1)     
+                                
+            plt.figure()        
+            plt.bar(bin_centers, bin_heights, width = bin_width, color=(0.05, 0.05, 0.05, 0.2),\
+                    edgecolor='blue', align = 'center', lw = 2)
+            
+            
+            txt_str = 'Iteration = ' + str(ii) +'\n'+\
+                        'NRMSE = ' + str(np.around(err_array[ii], 4 ))
+            
+            plt.yticks(fontsize = font)
+            plt.xticks(bin_boundaries, fontsize = font, rotation = 'horizontal')
+            plt.ylim(ylim)
+            plt.xlim(xlim)
+            plt.xlabel('Step Size', fontsize = font)
+            plt.ylabel('Probability', fontsize = font)
+            ax = plt.gca()
+            ax.yaxis.grid()
+            
+            ax.text(xlim[1]*0.8, ylim[1]*0.8, txt_str, fontsize = font)
+            
+            plt.title('Histogram of Estimated Step Sizes\n Stage ' + str(ii))
+            
+            plt.tight_layout()
+            plt.show() 
+            
+            if(save_fig == 1):  
+                UObj.folder_check('Stages/')
+                plt.savefig('Stages/StepHistogram_Stage_'+str(ii)+'.png')
+                plt.savefig('Stages/StepHistogram_Stage_'+str(ii)+'.svg')            
+    
+
         return()        
     #--------------------------------------------------------------------------        
 
 # =============================================================================
 
-#%%
-'''
 
-# =============================================================================
-# Generating noisy stepping data 
-# =============================================================================
-d = 2 # No. of steps
-dt = 0.1 # Sampling interval
-N = 200 # total number of samples 
-L = 1 # Step size
-
-# Noise standard deviation
-sigma = 0.5 #0.3162 = SNR of 5 for signal of size 1 and a duty ratio of 0.5 
-
-
-sigObj = SampleSignals()
-
-x = sigObj.get_step_sample(step_size = L, no_steps = d, no_samples = N)
-noise = sigObj.get_gaussian_noise(std = sigma, no_samples = N)
-#noise = sigObj.get_gamma_noise(shape = 5, scale = 1, no_samples = N)
-
-y = x + noise  # Noisy measurements
-
-
-
-# =============================================================================
-
-
-
-SDAObj = SDA()
-
-[step_estimate, est_array, hist_array]= SDAObj.SDA_standard(sigma, y, make_plots = 0, diagnostics = 1)
-
-
-plt.figure()
-plt.plot(step_estimate)
-plt.plot(x.T, 'r--')
-
-'''
