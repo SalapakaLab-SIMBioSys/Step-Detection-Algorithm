@@ -17,7 +17,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import control as ctrl
 
-
 import os
 
 import sys
@@ -40,15 +39,18 @@ sigma = 0.3162 #0.3162 Corresponds to an SNR of 5 for signal of size 1 and a dut
 
 # =============================================================================
 # Generating noisy stepping data 
+# This section is needed only for sample signal generation. Replace this section 
+# with your data. That is, instead of generating the measured signal 'y', 
+# assign 'y' to your signal of interest 
 # =============================================================================
 d = 10 # No. of steps
 dt = 0.1 # Sampling interval in s
 N = 1000 # total number of samples 
 L = 1 # Step size
-iterations = 50 # No. of SDA iterations
+iterations = 50 # Limit on the no. of SDA iterations
 resolution = 0.05 # Resolution of the SDA
-seed = 3 # For reproducibility (change seed for a new signal)
-include_dynamics = True # Choose to simulate sensor dynamics 
+seed = 2 # For reproducibility (change seed for a new signal)
+include_dynamics = False # Choose to simulate sensor dynamics 
 
 # Simulating sensor dynamics
 SDynObj = SDADynamics()
@@ -78,11 +80,9 @@ y = x_sensor + noise  # Noisy measurements
 # To use the SDA to estimate the stepping signal from data, 
 # you would need the standard deviation of noise in the signal.
 # Here the standard deviation of noise is denoted by 'sigma'.  
-# If you believe your data is curropted by sensor dynamics, 
-# specify the sensor dynamics. Here this is denoted by 'sysd'.  
 SDAObj = SDA()
 
-[step_estimate, est_array, hist_array]= SDAObj.SDA_dynamics(sigma, y, diagnostics = 0, sysd = sysd)
+[step_estimate, est_array, hist_array]= SDAObj.SDA_dynamics(sigma, y, diagnostics = 1, sysd = sysd)
 
 SDAObj.plot_SDA_stages(x.T, y, est_array, hist_array)
 
