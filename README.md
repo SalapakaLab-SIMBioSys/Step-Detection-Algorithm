@@ -1,5 +1,8 @@
-# Step Detection Algorithm (SDA)
-A toolbox for detecting steps of unknown size and location in a noisy signal.
+<p float="center">
+  <img src="Figures/Logo/SDA_Crop.svg" title = "Step Detection Algorithm" width = "1000"  />
+</p>
+
+**Step Detection Algorithm (SDA):** A toolbox for detecting steps of unknown size and location in a noisy signal.
 
 # How to use
 Here is a sample code to get the estimate of step signals from noisy measurements. 
