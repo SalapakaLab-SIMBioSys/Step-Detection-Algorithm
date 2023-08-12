@@ -1,0 +1,4 @@
+For the Legacy Matlab Version, please cite: 
+
+Aggarwal, Tanuj, Donatello Materassi, Robert Davison, Thomas Hays, and Murti Salapaka. 
+"Detection of steps in single molecule data." Cellular and molecular bioengineering 5, no. 1 (2012): 14-31.
